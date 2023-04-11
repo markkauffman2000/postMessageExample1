@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Sample iFrame Communication</title>
+  </head>
+  <body>
+    <h1>Sample iFrame Communication</h1>
+    <iframe id="iframe1" ></iframe>
+    <iframe id="iframe2" ></iframe>
+    <script>
+      
+      window.addEventListener('message', function(event) {
+        if (event.data === 'Hello from iframe1') {
+          var iframe2 = document.getElementById('iframe2');
+          iframe2.contentWindow.postMessage('Hello back from iframe1', '*');
+        }
+      });
+
+      var frame2 = document.getElementById('iframe2');
+      frame2.src = 'iframe2.html';
+      frame2.addEventListener('load', loadFrame1);
+      
+      function loadFrame1() {
+          document.getElementById('iframe1').src = 'iframe1.html';
+      }
+    </script>
+  </body>
+</html>
